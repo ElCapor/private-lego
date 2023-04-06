@@ -21,6 +21,12 @@ class TaskScheduler():
         while schduler_start != schduler_end:
             returned.append(Job(roblox.DRP(schduler_start)))
             schduler_start += 8
+    def GetJobByName(self, name) -> Job:
+        for job in self.getJobs():
+            if job.GetName() == name:
+                return Job
+        else:
+            return Job(0)
 
 
 

@@ -14,8 +14,19 @@ def GetDataModel() -> int:
     
 def float_to_hex(f):
     return hex(struct.unpack('<I', struct.pack('<f', f))[0])
-
-
+"""
+GetRenderJob() -> int
+returns address of SurfaceController::RenderJob
+TODO : refactor so that it doesnt need datamodel anymore -> done
+"""
+def GetRenderJob() -> int:
+     RenderJobString = "52 65 6E 64 65 72 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 06 00"
+     scanResult = roblox.AOBSCANALL(RenderJobString, True)
+     for scan in scanResult:
+        scan = scan - 0x10
+        if roblox.DRP(scan + 0x8) == scan:
+            return scan
+        
 def write_str(text:str, Address:int):
 	current_char = Address
 	lentgh = roblox.Program.read_int(Address + 0x10)
